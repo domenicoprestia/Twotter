@@ -1,0 +1,1 @@
+<?php include 'controller\dbactions.php'; $pdo = configDB(); deleteTag($pdo, $_GET['id']);?>

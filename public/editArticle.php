@@ -33,7 +33,7 @@
 </div>
 
    <?php foreach($articles as $article):?>
-   <form onsubmit="<?php if(isset($_GET['title']) && isset($_GET['body'])){updateArticle($pdo, $_GET['id'], $_GET['title'], $_GET['body']);} ?>">
+   <form class="text-center" onsubmit=<?php if(isset($_GET['title']) && isset($_GET['body'])){editArticle($pdo, $_GET['id'], $_GET['title'], $_GET['body'], $_GET['tags']);} ?>>
    <div class="card" style="background-color:rgb(126, 39, 39); width: 40rem;">
    <div id="article_title"class="card-header" style="text-align:left;">
    <input type="hidden" name="id" value="<?=$article->id?>">
@@ -42,6 +42,11 @@
    <div class="card-body">
       <p id = "body" class="card-text" style="text-align:left;"><textarea style="background-color: rgb(90, 63, 63); border-style:none; color:white;  border-radius:5px" name="body" value="<?=$article->body?>" rows="4" cols="64"><?=$article->body?></textarea></p>
       <div style="text-align:right;">
+      <select id="select" style="transform: translateX(-250px); border-style:none; border-radius:5px; background-color:rgb(90, 63, 63);"name="tags[]" class="form-select" size="3" aria-label="size 3 select" multiple>
+         <?php foreach($tags as $tag):?>
+            <option value="<?= $tag->id ?>"><?= $tag->name ?></option>
+         <?php endforeach?>
+      </select>
       <p id = "body" class="card-text" style="text-align:right;"><?= date('D, d M Y H:i:s')?></p>
       <input type="submit" class="btn" value="Update Article" style="background-color:rgb(126, 39, 39); color:white"></input>
 </form>

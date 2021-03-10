@@ -27,6 +27,20 @@ function fetchAllArticles($pdo){
    return $articoli;
 }
 
+function fetchRelationship($pdo, $article_id){
+   $sql = 'SELECT tag_id FROM articles_tags WHERE article_id=:article_id';
+   $stmt = $pdo->prepare($sql);
+   $stmt->bindParam('article_id', $article_id);
+   $stmt->execute();
+   $tags = $stmt->fetchAll();
+   $hashtags = [];
+   foreach($tags as $tag)
+   {
+      array_push($hashtags, fetchGivenTag($pdo, $tag[0]));
+   }
+   return $hashtags;
+}
+
 function fetchGivenArticle($pdo, $id){
    $sql = 'SELECT * FROM articles WHERE id=:id';
    $stmt = $pdo->prepare($sql);
@@ -36,7 +50,7 @@ function fetchGivenArticle($pdo, $id){
    return $article;
 }
 
-function addArticle($pdo, $title, $body, $tags){
+function uploadArticle($pdo, $title, $body, $tags){
       $sql = 'INSERT INTO articles (title , body) VALUES (:title, :body)';
       $stmt = $pdo->prepare($sql);
       $stmt->bindParam(':title', $title);
@@ -57,16 +71,29 @@ function addArticle($pdo, $title, $body, $tags){
       header('Location: index.php');
 }
 
-function updateArticle($pdo, $id, $title, $body){
+function editArticle($pdo, $id, $title, $body, $tags){
    $sql = 'UPDATE articles SET title=:title, body=:body WHERE id=:id';
    $stmt = $pdo->prepare($sql);
    $stmt->bindParam(':title', $title);
    $stmt->bindParam(':body', $body);
    $stmt->bindParam(':id', $id);
    $stmt->execute();
-   header('Location: index.php');
-}
 
+   $sql = 'DELETE FROM articles_tags WHERE article_id=:id';
+   $stmt = $pdo->prepare($sql);
+   $stmt->bindParam(':id', $id);
+   $stmt->execute();
+   
+   foreach($tags as $tag){
+      $sql ="INSERT INTO articles_tags(article_id, tag_id) VALUES (:article_id, :tag_id);";
+      $stmt = $pdo->prepare($sql);
+      $stmt -> bindParam(':article_id', $id);
+      $stmt ->bindParam(':tag_id', $tag);
+      $stmt ->execute();
+      }
+   
+   header('Location: index.php');
+   }
 function deleteArticle($pdo, $id){
    $sql = 'DELETE FROM articles WHERE id=:id';
    $stmt = $pdo->prepare($sql);
@@ -128,4 +155,5 @@ ON articles.id = article_tags.article_id
 INNER JOIN tags
 ON article_tags.tag_id = tags.id
 */
+
 ?>

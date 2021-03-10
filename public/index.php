@@ -52,6 +52,10 @@
    </div>
    <div class="card-body">
       <p id = "body" class="card-text" style="text-align:left;"><?= $articolo->body; ?></p>
+      <?php $hashtags = fetchRelationship($pdo, $articolo->id)?>
+      <?php foreach($hashtags as $hashtag): ?>
+         <p id="hashtag" class="card-text" style="text-align:left;">#<b><?= $hashtag[0]->name; ?></b></p> 
+      <?php endforeach ?>
       <p id = "body" class="card-text" style="text-align:right;"><?= $articolo->upload_time; ?></p>
       <div style="text-align:right;">
       <a href="editArticle.php?id=<?=$articolo->id?>" id="btn"><i class="fa fa-pencil"></i></a>

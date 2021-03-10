@@ -33,7 +33,7 @@
 </div>
 <form onsubmit=<?php 
 if(isset($_GET['title']))
-{addArticle($pdo, $_GET['title'], $_GET['body'], $_GET['tags']);} ?>>
+{uploadArticle($pdo, $_GET['title'], $_GET['body'], $_GET['tags']);} ?>>
 <div class="card" style="background-color:rgb(126, 39, 39); width: 40rem;">
    <div id="article_title"class="card-header" style="text-align:left;">
     <input style="background-color:rgb(126, 39, 39); border-style:none; color:white; border-radius:5px" type="text" name="title" placeholder="Write here the title"></input>

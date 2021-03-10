@@ -25,22 +25,19 @@
       <a href="uploadTag.php"><i class="fa fa-plus"></i> Tag</a>
       </li>
    </ul>
-   <div class="burger">
-      <div class="line1"></div>
-      <div class="line2"></div>
-      <div class="line3"></div>
-   </div>
 </div>
+<p>&nbsp</p>
 <form onsubmit=<?php 
-if(isset($_GET['title']))
-{uploadArticle($pdo, $_GET['title'], $_GET['body'], $_GET['tags']);} ?>>
+if(isset($_GET['title']) && $_GET['title'] != "")
+{uploadArticle($pdo, $_GET['title'], $_GET['body'], $_GET['tags']);}
+elseif(isset($_GET['title'])  && $_GET['title'] == ""){echo"<p class='text-center text-danger'>Set all the parameters correctly</p>";} ?>
 <div class="card" style="background-color:rgb(126, 39, 39); width: 40rem;">
    <div id="article_title"class="card-header" style="text-align:left;">
     <input style="background-color:rgb(126, 39, 39); border-style:none; color:white; border-radius:5px" type="text" name="title" placeholder="Write here the title"></input>
    </div>
    <div class="card-body">
       <p id = "body" class="card-text" style="text-align:left;"><textarea style="background-color:rgb(90, 63, 63); border-style:none; color:white; border-radius:5px" name="body" placeholder="Write here the article" rows="4" cols="64"></textarea></p>
-      <select id="select" style="transform: translateX(-250px); border-style:none; border-radius:5px; background-color:rgb(90, 63, 63);"name="tags[]" class="form-select" size="3" aria-label="size 3 select" multiple>
+      <select style="transform: translateX(-250px); border-style:none; border-radius:5px; background-color:rgb(90, 63, 63);" name="tags[]" size="3" multiple>
          <?php foreach($tags as $tag):?>
             <option value="<?= $tag->id ?>"><?= $tag->name ?></option>
          <?php endforeach?>

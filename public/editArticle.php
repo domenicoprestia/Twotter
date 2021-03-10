@@ -25,15 +25,11 @@
       <a href="uploadTag.php"><i class="fa fa-plus"></i> Tag</a>
       </li>
    </ul>
-   <div class="burger">
-      <div class="line1"></div>
-      <div class="line2"></div>
-      <div class="line3"></div>
-   </div>
 </div>
-
+   <p>&nbsp</p>
    <?php foreach($articles as $article):?>
-   <form class="text-center" onsubmit=<?php if(isset($_GET['title']) && isset($_GET['body'])){editArticle($pdo, $_GET['id'], $_GET['title'], $_GET['body'], $_GET['tags']);} ?>>
+   <form class="text-center" onsubmit=<?php if(isset($_GET['title']) && isset($_GET['body']) && $_GET['title'] != ""){editArticle($pdo, $_GET['id'], $_GET['title'], $_GET['body'], $_GET['tags']);}
+   elseif(isset($_GET['title'])  && $_GET['title'] == ""){echo"<p class='text-center' style='color:red;'>Set all the parameters correctly</p>";} ?>
    <div class="card" style="background-color:rgb(126, 39, 39); width: 40rem;">
    <div id="article_title"class="card-header" style="text-align:left;">
    <input type="hidden" name="id" value="<?=$article->id?>">

@@ -28,11 +28,6 @@
       <a href="uploadTag.php"><i class="fa fa-plus"></i> Tag</a>
       </li>
    </ul>
-   <div class="burger">
-      <div class="line1"></div>
-      <div class="line2"></div>
-      <div class="line3"></div>
-   </div>
 </div>
 <?php if(count($articoli) == 0):?>
    <div class="card" style="background-color:rgb(126, 39, 39); width: 40rem;">
@@ -67,6 +62,5 @@
 </div>
 <?php endforeach ?>
 <script src="https://kit.fontawesome.com/4d1b511d1a.js"></script>
-<script src="js/main.js"></script>
 </body>
 </html>

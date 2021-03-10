@@ -7,7 +7,7 @@
    <link rel="stylesheet" href="css/style.css">
    <link rel="stylesheet" href="css/bootstrap.min.css">
    <title>💨 Twotter</title>
-   <?php include "controller/dbactions.php"; $pdo = configDB(); $articles = fetchGivenArticle($pdo, $_GET['id']); $tags = fetchAllTags($pdo);?>
+   <?php include "controller/dbactions.php"; $pdo = configDB(); $articles = fetchGivenArticle($pdo, $_GET['id']); $tags = fetchAllTags($pdo); $hashtags = fetchRelationship($pdo, $_GET['id'])?>
 </head>
 <body>
 <div class="nav">
@@ -41,10 +41,19 @@
    </div>
    <div class="card-body">
       <p id = "body" class="card-text" style="text-align:left;"><textarea style="background-color: rgb(90, 63, 63); border-style:none; color:white;  border-radius:5px" name="body" value="<?=$article->body?>" rows="4" cols="64"><?=$article->body?></textarea></p>
-      <div style="text-align:right;">
-      <select id="select" style="transform: translateX(-250px); border-style:none; border-radius:5px; background-color:rgb(90, 63, 63);"name="tags[]" class="form-select" size="3" aria-label="size 3 select" multiple>
+      <div style="text-align:left;">
+      <select id="select" style="border-style:none; border-radius:5px; background-color:rgb(90, 63, 63);"name="tags[]" class="form-select" size="3" aria-label="size 3 select" multiple>
          <?php foreach($tags as $tag):?>
+            <?php $check = false; foreach($hashtags as $hashtag){
+               if($tag->id == $hashtag[0]->id){
+                  $check = true;
+               };
+            }?>
+            <?php if($check == true): ?>
+            <option value="<?= $tag->id ?>" selected><?= $tag->name ?></option>
+            <?php else: ?>
             <option value="<?= $tag->id ?>"><?= $tag->name ?></option>
+            <?php endif ?>
          <?php endforeach?>
       </select>
       <p id = "body" class="card-text" style="text-align:right;"><?= date('D, d M Y H:i:s')?></p>

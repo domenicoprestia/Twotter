@@ -8,7 +8,7 @@
    <link rel="stylesheet" href="css/bootstrap.min.css">
    <title>💨 Twotter</title>
 </head>
-<body>
+<body style="background-image: url('imgs/bg.jpg');">
 <?php  include 'controller/dbactions.php'; $pdo = configDB(); $tags = fetchGivenTag($pdo, $_GET['id']);?>
    <div class="nav">
    <div class="logo">
@@ -32,7 +32,8 @@
    </div>
 </div>
 <?php foreach($tags as $tag):?>
-   <form onsubmit="<?php if(isset($_GET['name']) && isset($_GET['description'])){editTag($pdo, $_GET['id'], $_GET['name'], $_GET['description']);} ?>">
+   <form onsubmit="<?php if(isset($_GET['name']) && isset($_GET['description']) && $_GET['name'] != "")
+   {editTag($pdo, $_GET['id'], $_GET['name'], $_GET['description']);} ?>">
    <div class="card" style="background-color:rgb(126, 39, 39); width: 40rem;">
    <div id="article_title"class="card-header" style="text-align:left;">
    <input type="hidden" name="id" value="<?=$tag->id?>">

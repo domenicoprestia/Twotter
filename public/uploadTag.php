@@ -8,7 +8,7 @@
    <link rel="stylesheet" href="css/bootstrap.min.css">
    <title>💨 Twotter</title>
 </head>
-<body>
+<body style="background-image: url('imgs/bg.jpg');">
 <?php  include 'controller/dbactions.php'; $pdo = configDB(); $tags = fetchAllTags($pdo);?>
    <div class="nav">
    <div class="logo">
@@ -32,7 +32,7 @@
    </div>
 </div>
 <form onsubmit="<?php if(isset($_GET['name']) && isset($_GET['description']))
-{uploadTag($pdo, $_GET['name'], $_GET['description']);}?>">
+{if($_GET['name'] != ""){uploadTag($pdo, $_GET['name'], $_GET['description']);}}?>">
 <div class="card" style="background-color:rgb(126, 39, 39); width: 40rem;">
    <div id="article_title"class="card-header" style="text-align:left;">
     <input style="background-color:rgb(126, 39, 39); border-style:none; color:white; border-radius:5px" type="text" name="name" placeholder="Write here the tag name"></input>

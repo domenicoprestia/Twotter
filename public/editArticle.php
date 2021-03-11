@@ -9,7 +9,7 @@
    <title>💨 Twotter</title>
    <?php include "controller/dbactions.php"; $pdo = configDB(); $articles = fetchGivenArticle($pdo, $_GET['id']); $tags = fetchAllTags($pdo); $hashtags = fetchRelationship($pdo, $_GET['id'])?>
 </head>
-<body>
+<body style="background-image: url('imgs/bg.jpg');">
 <div class="nav">
    <div class="logo">
       <h1 ><i class="fa fa-wind"></i> Twotter</h1>
@@ -28,10 +28,9 @@
 </div>
    <p>&nbsp</p>
    <?php foreach($articles as $article):?>
-   <form class="text-center" onsubmit=<?php if(isset($_GET['title']) && isset($_GET['body']) && $_GET['title'] != ""){editArticle($pdo, $_GET['id'], $_GET['title'], $_GET['body'], $_GET['tags']);}
-   elseif(isset($_GET['title'])  && $_GET['title'] == ""){echo"<p class='text-center' style='color:red;'>Set all the parameters correctly</p>";} ?>
+   <form class="text-center" onsubmit=<?php if(isset($_GET['title']) && isset($_GET['body']) && $_GET['title'] != ""){editArticle($pdo, $_GET['id'], $_GET['title'], $_GET['body'], $_GET['tags']);} elseif(isset($_GET['title'])  && $_GET['title'] == ""){echo"<p class='text-center' style='color:red;'>Set all the parameters correctly</p>";} ?> -> 
    <div class="card" style="background-color:rgb(126, 39, 39); width: 40rem;">
-   <div id="article_title"class="card-header" style="text-align:left;">
+   <div id="article_title" class="card-header" style="text-align:left;">
    <input type="hidden" name="id" value="<?=$article->id?>">
     <input style="background-color:rgb(126, 39, 39); border-style:none; color:white; border-radius:5px" type="text" name="title" value="<?=$article->title?>"></input>
    </div>
